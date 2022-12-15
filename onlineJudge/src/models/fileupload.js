@@ -7,10 +7,16 @@ module.exports = {
 
         var form = new formidable.IncomingForm();
         
+        form.uploadDir = "./uploadfile/"
         form.parse(req, function (err, fields, files) {
             var oldpath = files.filetoupload.filepath;
             var newpath = './uploadfile/' + files.filetoupload.originalFilename;
-            fs.rename(oldpath, newpath , function (){
+            console.log(oldpath)
+            console.log(newpath)
+            fs.rename(oldpath, newpath , function (err){
+
+                if(err) console.error(err);
+
                 let options = {
                     args:
                       [
