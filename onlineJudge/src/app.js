@@ -9,8 +9,8 @@ app.use(bodyparser.json());
 
 const url = "/OnlineJudge/"
 
-app.use(express.static('view/'))
-app.use(fileupload)
+// app.use(express.static('view/'))
+// app.use(fileupload)
 app.use(url , express.static('view/'))
 app.use(url , fileupload)
 
