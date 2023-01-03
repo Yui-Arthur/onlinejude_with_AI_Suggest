@@ -12,8 +12,12 @@ module.exports = {
         form.parse(req, function (err, fields, files) {
             var oldpath = files.filetoupload.filepath;
             var newpath = './uploadfile/' + files.filetoupload.originalFilename;
-            console.log(oldpath)
-            console.log(newpath)
+
+            var questionName = files.filetoupload.originalFilename.split('.')[0]
+            var lang = files.filetoupload.originalFilename.split('.')[1]
+
+            console.log(questionName)
+            console.log(lang)
             fs.rename(oldpath, newpath , function (err){
 
                 if(err) console.error(err);
@@ -21,11 +25,11 @@ module.exports = {
                 let options = {
                     args:
                       [
-                        "-p 1234",
-                        "-v 467"
+                        `--lang ${lang}`,
+                        `--questionName ${questionName}`
                       ]
                   }
-                PythonShell.run('./Judge_and_chatGPT/check_and_reply.py', options ,function (err,  data) {
+                PythonShell.run('./Judge/check_and_reply.py', options ,function (err,  data) {
                     
                     if (err) console.error(err);
                     // callback(data);  
