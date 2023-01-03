@@ -1,4 +1,5 @@
 var editor = ace.edit('editor');
+var code_language = "c";
 editor.setAutoScrollEditorIntoView(true);
 editor.setTheme("ace/theme/gruvbox");
 editor.getSession().setMode("ace/mode/java");
@@ -37,11 +38,10 @@ public class Main {\n\
 
 
 function setLanguage(Language) {
-	// editor.setTheme("ace/theme/cobalt");
-
 	switch(Language){
 
 		case "c":
+			code_language = "c";
 			editor.getSession().setMode("ace/mode/c_cpp");
 			editor.setValue(annotation + cSource);
 			document.getElementById("c").style.backgroundColor="#ebdab4";
@@ -50,6 +50,7 @@ function setLanguage(Language) {
 			break;
 
 		case "cpp":
+			code_language = "cpp";
 			editor.getSession().setMode("ace/mode/c_cpp");
 			editor.setValue(annotation + cppSource);
 			document.getElementById("c").style.backgroundColor="#3c3836";
@@ -58,6 +59,7 @@ function setLanguage(Language) {
 			break;
 
 		case "java":
+			code_language = "java";
 			editor.getSession().setMode("ace/mode/java");
 			editor.setValue(annotation + javaSource);
 			document.getElementById("c").style.backgroundColor="#3c3836";
@@ -86,43 +88,23 @@ function selectTextFile(files) {
 }
 
 function saveDynamicDataToFile() {
-
-	const fs = require('fs')
-      
-    // Data which will write in a file.
-    // var code = editor.getValue();
-      
-	let data = "Learning how to write in a file."
-      
-    // Write data in 'Output.txt' .
-    fs.writeFile('Output.txt', data, (err) => {
-          
-        // In case of a error throw err.
-        if (err) throw err;
-    })
-
-    // Write data in 'Output.txt' .
-    // fs.writeFile('Output.txt', code, (err) => {
-          
-    //     // In case of a error throw err.
-    //     if (err) throw err;
-    // })
 	//filename = {Problem}_{Language}
-	
+	var Problemname = document.getElementById("promble").value;
+	var codefilename = Problemname+'.'+code_language;
 
-	// var FileSaver = require('file-saver');
-	// var blob = new Blob([code], {type: "text/plain;charset=utf-8"});
-	// //FileSaver.saveAs(blob, "dynamic.txt");
-	// FileSaver.saveAs(blob, "/home/a10955psys/onlineJudge/uploadfiles/dynamic.txt");
+	var code = editor.getValue();
+	var formData = new FormData();
+	const blob = new Blob([code], { type: "text/plain;charset=utf-8" });
+	formData.append('filetoupload', blob, codefilename);
+	//xhr.send(formData);
 
-	
-	//var blob = new Blob([code], { type: "text/plain;charset=utf-8" });
-	//saveAs(blob, "/home/a10955psys/onlineJudge/uploadfiles/dynamic.txt");
+	const request = new XMLHttpRequest();
+	request.open('POST', './fileupload');
+	request.send(formData);
 }
 
 
 setLanguage("c");
-
 /*
 	'dracula' => 'Dracula',
 	'gruvbox' => 'Gruvbox',讚
