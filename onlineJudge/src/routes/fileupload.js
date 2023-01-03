@@ -1,5 +1,5 @@
-var express = require('express');
-var flieupload = require('../models/fileupload');
+const express = require('express');
+const flieupload = require('../models/fileupload');
 var router = express.Router();
 
 router.route('/fileupload')

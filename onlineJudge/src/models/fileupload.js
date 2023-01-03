@@ -1,6 +1,7 @@
 let { PythonShell } = require('python-shell')
-var formidable = require('formidable');
-var fs = require('fs');
+const formidable = require('formidable');
+const fs = require('fs');
+
 module.exports = {
     
     upload: function (req , callback){
