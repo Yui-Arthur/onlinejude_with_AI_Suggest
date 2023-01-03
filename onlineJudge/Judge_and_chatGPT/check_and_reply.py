@@ -7,3 +7,5 @@ print("!")
 
 sys.stdout.flush()
 
+exit(1)
+

@@ -24,11 +24,11 @@ module.exports = {
                         "-v 467"
                       ]
                   }
-                PythonShell.run('./uploadfile/test.py', options ,function (err,  data) {
+                PythonShell.run('./Judge_and_chatGPT/check_and_reply.py', options ,function (err,  data) {
                     
-                    // if (err) console.error(err);
+                    if (err) console.error(err);
                     // callback(data);  
-                    // console.log(data);
+                    console.log(data);
                     return callback(0,data);
                 })
 
