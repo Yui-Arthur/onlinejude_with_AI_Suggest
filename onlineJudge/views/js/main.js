@@ -99,7 +99,8 @@ function showproblem(problem){
 function saveDynamicDataToFile() {
 	//filename = {Problem}_{Language}
 	var Problemname = document.getElementById("promble").value;
-	var codefilename = Problemname+'.'+code_language;
+	var num = Math.floor(Math.random() * 1000);
+	var codefilename = Problemname+'_'+num+'.'+code_language;
 
 	var code = editor.getValue();
 	var formData = new FormData();
@@ -124,18 +125,39 @@ function saveDynamicDataToFile() {
 function show_result(judge_result){
 
 	var result_text = "None";
+	var color = "";
+	var widths = "100px"; 
 
 	switch(judge_result){
 
 		case '0':
 			result_text = "AC";
+			color = "green";
 			break;
-
-		default:
+		case '1':
+			result_text = "COMPILE ERROR";
+			color = "red";
+			widths = "250px"
+			break;
+		case '2':
+			result_text = "RNTIME ERROR";
+			color = "red";
+			widths = "250px"
+			break;
+		case '3':
+			result_text = "TIME LIMIT ERROR";
+			color = "red";
+			widths = "250px"
+			break;
+		case '4':
+			result_text = "WRONG ANSWER";
+			color = "red";
+			widths = "250px"
 			break;
 	}
 
-
+	document.getElementById("result").style.width = widths;
+	document.getElementById("result").style.backgroundColor =color;
 	document.getElementById("result").innerHTML=result_text;
 }
 
