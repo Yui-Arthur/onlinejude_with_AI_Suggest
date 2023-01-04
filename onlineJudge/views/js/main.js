@@ -192,7 +192,7 @@ function show_GPT(codefilename){
 			//var arrayOfStrings = judge_result.split(",");
 			var final = "";
 			for (var i=0; i < judge_result.length; i++)
-				final = judge_result[i]+"<br>";
+				final += (judge_result[i]+"<br>");
 
 			document.getElementById("GPT").innerHTML=final;
 		}
