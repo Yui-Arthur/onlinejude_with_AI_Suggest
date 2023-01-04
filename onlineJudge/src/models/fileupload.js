@@ -29,7 +29,7 @@ module.exports = {
                         `--questionName ${questionName}`
                       ]
                   }
-                PythonShell.run('./Judge/check_and_reply.py', options ,function (err,  data) {
+                PythonShell.run('./src/models/Judge/check_and_reply.py', options ,function (err,  data) {
                     
                     if (err) console.error(err);
                     // callback(data);  

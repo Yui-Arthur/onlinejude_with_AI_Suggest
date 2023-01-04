@@ -5,8 +5,8 @@ module.exports = {
     
     getPage: function (req , callback){
         
-        var questionList = fs.readdirSync('./Judge/question');
-        var questionContent = fs.readFileSync(`./Judge/question/${req.params.questionName}/content.txt`)
+        var questionList = fs.readdirSync('./question');
+        var questionContent = fs.readFileSync(`./question/${req.params.questionName}/content.txt`)
         
 
         

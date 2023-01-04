@@ -39,7 +39,7 @@
           <form class="form-inline" enctype="multipart/form-data">
             <div class="item flex-grow-1" >
               <div class="ui dropdown selection"  tabindex="0">
-                <select class="dropdownlist" id="promble" onchange="location.href='http://localhost:8001/OnlineJudge/'+this.value;" style="border-radius: 10px; margin-top: 5px;" >
+                <select class="dropdownlist" id="promble" onchange="location.href='/OnlineJudge/'+this.value;" style="border-radius: 10px; margin-top: 5px;" >
                   <option value=problem selected disabled hidden>Problem</option>
                   <% for(var i=0; i<questionList.length; i++) { %>
                     <option value=<%= questionList[i] %>> <%= questionList[i] %> </option>
@@ -51,11 +51,11 @@
               <input class="form-control form-control-lg col-xs-2" id="formFileLg" type="file" accept=".cpp ,.java ,.c" onchange="selectTextFile(this.files)"  />
             </div>
           
-          </form>
             <div class="submit-button justify-content-end bd-highlight">
-              <button type="submit" class="btn justify-content-end" onclick="saveDynamicDataToFile()" style="margin-right: 13px;">Submit</button>
+              <button type="button" class="btn justify-content-end" onclick="saveDynamicDataToFile()" style="margin-right: 13px;">Submit</button>
             </div>
             
+          </form>
           
         </div>
         
