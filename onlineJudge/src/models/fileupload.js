@@ -24,12 +24,12 @@ module.exports = {
                 if(err) console.error(err);
                 
                 var questionArgc = questionPath+"/"+questionName
-                var saveArgc = savePath+"/"+questionName+".txt"
+                //var saveArgc = savePath+"/"+questionName+".txt"
 
                 let options = {
                     args:
                       [
-                        questionpath,
+                        questionArgc,
                         newpath,
                       ]
                   }
@@ -37,7 +37,7 @@ module.exports = {
                     
                     if (err) console.error(err);
                     // callback(data);  
-                    //console.log(data);
+                    console.log(data);
                     return callback(0,data);
                 })
 

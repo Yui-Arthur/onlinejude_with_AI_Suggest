@@ -107,11 +107,13 @@ def javaJudge() -> Tuple[int, str]:
 def main() -> int:
     funcptr = {"c": cppJudge, "cpp": cppJudge, "java": javaJudge}
     statcode, error_message = funcptr[EXTENSION]()
-    print(os.getcwd())
+    #print(os.getcwd())
     with open(ERROR_MSG_ROOT + FILENAME + ".txt", 'w') as file:
         file.write(error_message)
     return statcode
 
 
 if __name__ == '__main__':
-    os._exit(main())
+    #os._exit(main())
+    print(main())
+    sys.stdout.flush()
