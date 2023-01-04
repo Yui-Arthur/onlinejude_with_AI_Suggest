@@ -116,6 +116,7 @@ function saveDynamicDataToFile() {
 			var judge_result = request.response;
 			console.log(request.response);
 			show_result(judge_result);
+			show_GPT(codefilename);
 		}
 	}
 
@@ -160,6 +161,34 @@ function show_result(judge_result){
 	document.getElementById("result").style.backgroundColor =color;
 	document.getElementById("result").innerHTML=result_text;
 }
+
+function wait(){
+	var txt = document.getElementById("GPT").innerHTML;
+	console.log("Load"+txt);
+	txt+=".";
+	
+	if(txt.length>5)
+		txt="";
+
+	document.getElementById("GPT").innerHTML=txt;
+}
+
+function show_GPT(codefilename){
+	var request = new XMLHttpRequest();
+	request.open("GET", "./"+codefilename);
+	request.send();
+	document.getElementById("GPT").innerHTML='.';
+	var load = setInterval(wait, 500);
+	if (request) {
+		request.onload = function () {
+			var judge_result = request.response;
+			console.log(request.response);
+			document.getElementById("GPT").innerHTML=judge_result;
+			clearInterval(load);
+		}
+	}
+}
+
 
 setLanguage("c");
 /*
