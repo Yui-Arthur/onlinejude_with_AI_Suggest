@@ -188,9 +188,11 @@ function show_GPT(codefilename){
 			clearInterval(load);
 			document.getElementById("GPT").style.fontSize = "15px";
 
+			judge_result = judge_result.substring(1, judge_result.length-1)
 			var arrayOfStrings = judge_result.split(",");
 			var final = "";
 			for (var i=0; i < arrayOfStrings.length; i++)
+				arrayOfStrings[i] = arrayOfStrings[i].substring(1, arrayOfStrings[i]-1)
 				final = arrayOfStrings[i]+"<br>";
 
 			document.getElementById("GPT").innerHTML=final;
