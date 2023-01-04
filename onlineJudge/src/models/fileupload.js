@@ -1,6 +1,9 @@
 let { PythonShell } = require('python-shell')
 const formidable = require('formidable');
 const fs = require('fs');
+const questionPath = "./question"
+const sessionPath = ".config.ini"
+const savePath = "./src/models/chatGPT"
 
 module.exports = {
     
@@ -22,20 +25,51 @@ module.exports = {
 
                 if(err) console.error(err);
 
+                // let options = {
+                //     args:
+                //       [
+                //         //`${questionpath}`
+                //         //`${newpath}`
+                //       ]
+                //   }
+                // PythonShell.run('./src/models/Judge/judge.py', options ,function (err,  data) {
+                    
+                //     if (err) console.error(err);
+                //     // callback(data);  
+                //     //console.log(data);
+                //     return callback(0,data);
+                // })
+                var questionArgc = questionPath+"/"+questionName
+                var saveArgc = savePath+"/"+questionName+".txt"
+                //'--judge_rst',"0",
                 let options = {
                     args:
                       [
-                        `--lang ${lang}`,
-                        `--questionName ${questionName}`
+                        '--question' , questionArgc,
+                        '--session' , sessionPath,
+                        '--code' ,  newpath,
+                        '--lang' , lang,
+                        '--save' ,  saveArgc
                       ]
                   }
-                PythonShell.run('./src/models/Judge/check_and_reply.py', options ,function (err,  data) {
+
+                PythonShell.run('./src/models/chatGPT/check_and_reply.py', options ,function (err,  data) {
                     
                     if (err) console.error(err);
-                    // callback(data);  
+                    // callback(data);
+                    console.log("!");  
                     console.log(data);
                     return callback(0,data);
                 })
+
+                // PythonShell.run('./src/models/chatGPT/test.py', options ,function (err,  data) {
+
+                //     if (err) console.error(err);
+                    
+                //     console.log("!");  
+                //     console.log(data);
+                //     return callback(0,data);
+                // })
 
             });
 

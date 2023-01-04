@@ -22,6 +22,20 @@ router.route('/:questionName')
     })
 
 
+router.route('/')
+    .get(function (req, res) {        
+        mainpage.getDefaltPage(req , function (err, results, fields) {
+            if (err) {
+                res.sendStatus(500);
+                return console.error(err);
+            }
+
+            questionList = results[0];
+
+            res.render("index" , {questionName:"Not Select" ,questionContent:"", questionList: questionList});
+            return;
+        })
+    })
 
 module.exports = router;   
     
