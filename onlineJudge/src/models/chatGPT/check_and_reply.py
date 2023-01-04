@@ -18,6 +18,7 @@ verdict ={
 }
 
 
+
 def read_file(file_path):
   with open(file_path,"r") as f:
       data =f.read()
@@ -26,10 +27,10 @@ def read_file(file_path):
 
 def create_question_toChatGPT(problem,code,lang,judge_result):
   
-  if judge_result:
-    prompt = problem+"\n-----------------------\n"+verdict[str(judge_result)]+lang+"\n-----------------------\n"+code
+  if judge_result == "1":
+    prompt = verdict[judge_result]+lang+"\n-----------------------\n"+code
   else :
-    prompt = verdict[str(judge_result)]+lang+"\n-----------------------\n"+code
+    prompt = problem+"\n-----------------------\n"+verdict[judge_result]+lang+"\n-----------------------\n"+code
     
   
   prompt += "\n\n請用中文回答我"
@@ -38,8 +39,6 @@ def create_question_toChatGPT(problem,code,lang,judge_result):
 
 def start_chatGPT(args,judge_result):
   
-  
-
   question_filepath = args["question"]
   code_filepath = args["code"]
   config_filepath =args["session"]
@@ -53,7 +52,7 @@ def start_chatGPT(args,judge_result):
   
   prompt = create_question_toChatGPT(problem,code,lang,judge_result)
   
-  print(prompt)
+  #print(prompt)
   # get session token
   config = configparser.ConfigParser()
   config.read(config_filepath)
@@ -64,7 +63,7 @@ def start_chatGPT(args,judge_result):
   
   rst_message = api.send_message(prompt)["message"]
   api.driver.close()
-  print("\n\nreturn message")
+  #print("\n\nreturn message")
   print(rst_message)
   
   with open(opt.save,"w") as f:
@@ -80,10 +79,10 @@ def print_input_args(args):
 def main(opt):
   
   args = vars(opt)
-  print_input_args(args)
+  #print_input_args(args)
   
   judge_result = args["judge_rst"]
-  #print("!!!!",flush=True)
+  
   if judge_result :
     start_chatGPT(args,judge_result)
 
@@ -91,7 +90,7 @@ def parse_opt(known=False):
   
   
   parser =argparse.ArgumentParser()
-  parser.add_argument("--judge_rst",type=str,default = 4,help="judge result")
+  parser.add_argument("--judge_rst",type=str,required=True,help="judge result")
   parser.add_argument("--question",type=str ,default="./question",help="question path")
   parser.add_argument("--session",type=str ,default="./config.ini",help="config.ini path")
   parser.add_argument("--code",type=str ,help = "the path of code file ")

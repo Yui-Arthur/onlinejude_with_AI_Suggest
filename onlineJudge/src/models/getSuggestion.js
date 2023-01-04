@@ -1,7 +1,8 @@
 const fs = require('fs');
 const questionPath = "./question"
-const sessionPath = ".config.ini"
+const sessionPath = "./config.ini"
 const savePath = "./src/models/chatGPT"
+let { PythonShell } = require('python-shell')
 
 module.exports = {
     
@@ -10,14 +11,15 @@ module.exports = {
         // xxx_123.cpp
         var questionName = req.params.judgeNumber.split('_')[0]
         var lang = req.params.judgeNumber.split('.')[1]
-        var codePath = "./uploadfile"+ req.params.judgeNumber
-        
+        var codePath = "./uploadfile/"+ req.params.judgeNumber
+        console.log("!"+questionName)
         var questionArgc = questionPath+"/"+questionName
         var saveArgc = savePath+"/"+req.params.judgeNumber.split('.')[0]+".txt"
+        var judge_rst = "1";
         let options = {
             args:
             [
-                '--judge_rst',"0",
+                '--judge_rst',judge_rst,
                 '--question' , questionArgc,
                 '--session' , sessionPath,
                 '--code' ,  codePath,

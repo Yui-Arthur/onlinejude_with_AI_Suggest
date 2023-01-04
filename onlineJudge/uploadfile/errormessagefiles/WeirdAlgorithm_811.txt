@@ -1,4 +1,0 @@
-./uploadfile/WeirdAlgorithm_811.java:6: error: class WeirdAlgorithm is public, should be declared in a file named WeirdAlgorithm.java
-public class WeirdAlgorithm {
-       ^
-1 error
