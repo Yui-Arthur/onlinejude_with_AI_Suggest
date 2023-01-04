@@ -116,7 +116,9 @@ function saveDynamicDataToFile() {
 			var judge_result = request.response;
 			console.log(request.response);
 			show_result(judge_result);
-			show_GPT(codefilename);
+
+			if(judge_result != '0')
+				show_GPT(codefilename);
 		}
 	}
 
@@ -183,8 +185,15 @@ function show_GPT(codefilename){
 		request.onload = function () {
 			var judge_result = request.response;
 			console.log(request.response);
-			document.getElementById("GPT").innerHTML=judge_result;
 			clearInterval(load);
+			document.getElementById("GPT").style.fontSize = "15px";
+
+			var arrayOfStrings = judge_result.split(",");
+			var final = "";
+			for (var i=0; i < arrayOfStrings.length; i++)
+				final = arrayOfStrings[i]+"<br>";
+
+			document.getElementById("GPT").innerHTML=final;
 		}
 	}
 }
