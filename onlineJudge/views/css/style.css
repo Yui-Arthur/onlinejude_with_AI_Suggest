@@ -124,6 +124,17 @@ div.output{
     padding-right: 15px;
 }
 
+#result {
+    font-weight: bold;
+    font-size: 25px;
+    font-weight: 10;
+    color: white;
+    height: 35px;
+    width: 100px;
+    margin-top: 5px;
+    text-align: center;
+}
+
 
 
 div.output-wrapper {
