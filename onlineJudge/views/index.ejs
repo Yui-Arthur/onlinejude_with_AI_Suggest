@@ -71,7 +71,10 @@
           <h1 style="font-size: 30px; color: white;"><%= questionName %></h1>
           <div class="left-middle">
           </div>
-          <p><%= questionContent %></p>
+          <% for(var i=0; i<questionContent.length; i++) { %>
+            <p > <%= questionContent[i] %> </p><br>
+          <% } %>
+          
         </div>
 
         <div class="left-right" style="width: 0.4%; background-color: #3c3836;">

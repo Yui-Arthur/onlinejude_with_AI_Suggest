@@ -11,7 +11,7 @@ router.route('/:questionName')
                 res.sendStatus(500);
                 return console.error(err);
             }
-            console.log( req.params.questionName )
+            //console.log( req.params.questionName )
             questionName = req.params.questionName
             questionList = results[0];
             questionContent = results[1];

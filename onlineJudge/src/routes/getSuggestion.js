@@ -2,7 +2,7 @@ const express = require('express');
 const getSuggestion = require('../models/getSuggestion');
 var router = express.Router();
 
-router.route('/chatGPT_Result/:judgeNumber')
+router.route('/chatGPT_Result/:judgeNumber/:judgeRst')
     // 取得所有資源
 
     .get(function (req, res) {        

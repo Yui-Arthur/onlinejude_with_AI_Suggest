@@ -15,7 +15,7 @@ module.exports = {
         console.log("!"+questionName)
         var questionArgc = questionPath+"/"+questionName
         var saveArgc = savePath+"/"+req.params.judgeNumber.split('.')[0]+".txt"
-        var judge_rst = "1";
+        var judge_rst = req.params.judgeRst;
         let options = {
             args:
             [
@@ -32,7 +32,13 @@ module.exports = {
             
             if (err) console.error(err);
             console.log(data);
-            return callback(0,data);
+
+            var response = "";
+            for (var i = 0; i < data.length; i++) {
+                 response += "<p>" + data[i] + "</p><br>";
+            }
+            console.log(response)
+            return callback(0,response);
         })
     },
 

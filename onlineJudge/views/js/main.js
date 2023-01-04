@@ -118,7 +118,7 @@ function saveDynamicDataToFile() {
 			show_result(judge_result);
 
 			if(judge_result != '0')
-				show_GPT(codefilename);
+				show_GPT(codefilename , judge_result);
 		}
 	}
 
@@ -175,9 +175,9 @@ function wait(){
 	document.getElementById("GPT").innerHTML=txt;
 }
 
-function show_GPT(codefilename){
+function show_GPT(codefilename , judge_rst){
 	var request = new XMLHttpRequest();
-	request.open("GET", "./chatGPT_Result/"+codefilename);
+	request.open("GET", "./chatGPT_Result/"+codefilename+"/"+judge_rst);
 	request.send();
 	document.getElementById("GPT").innerHTML='.';
 	var load = setInterval(wait, 500);
@@ -190,11 +190,9 @@ function show_GPT(codefilename){
 
 			//judge_result = judge_result.substring(1, judge_result.length-1)
 			//var arrayOfStrings = judge_result.split(",");
-			var final = "";
-			for (var i=0; i < judge_result.length; i++)
-				final += (judge_result[i]+"<br>");
 
-			document.getElementById("GPT").innerHTML=final;
+
+			document.getElementById("GPT").innerHTML= judge_result;
 		}
 	}
 }

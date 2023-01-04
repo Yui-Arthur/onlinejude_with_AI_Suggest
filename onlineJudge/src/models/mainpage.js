@@ -8,11 +8,14 @@ module.exports = {
         var questionList = fs.readdirSync('./question');
 
 
-        var questionContent = fs.readFileSync(`./question/${req.params.questionName}/description.txt`)
+        var questionContent = fs.readFileSync(`./question/${req.params.questionName}/description.txt` ,{encoding:'utf8', flag:'r'})
         
-
+        var questionContentList = questionContent.split('\n')
         
-        callback(0,[questionList,questionContent])
+        
+        
+        
+        callback(0,[questionList,questionContentList])
 
     },
 

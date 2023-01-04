@@ -66,8 +66,8 @@ def start_chatGPT(args,judge_result):
   #print("\n\nreturn message")
   print(rst_message)
   
-  with open(opt.save,"w") as f:
-    f.write(rst_message)
+  #with open(opt.save,"w") as f:
+    #f.write(rst_message)
 
 def print_input_args(args):
   
