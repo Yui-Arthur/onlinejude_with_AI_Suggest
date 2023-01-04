@@ -11,8 +11,8 @@ router.route('/fileupload')
                 res.sendStatus(500);
                 return console.error(err);
             }
-
-            res.send(results);
+            // console.log(results);
+            res.send(results[0]);
             return;
         });
     })

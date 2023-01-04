@@ -87,6 +87,15 @@ function selectTextFile(files) {
     reader.readAsText(file);
 }
 
+function showproblem(problem){
+	console.log(problem);
+	//var request = new XMLHttpRequest();
+	//request.open('GET', problem);
+
+
+}
+
+
 function saveDynamicDataToFile() {
 	//filename = {Problem}_{Language}
 	var Problemname = document.getElementById("promble").value;
@@ -98,11 +107,37 @@ function saveDynamicDataToFile() {
 	formData.append('filetoupload', blob, codefilename);
 	//xhr.send(formData);
 
-	const request = new XMLHttpRequest();
+	var request = new XMLHttpRequest();
 	request.open('POST', './fileupload');
 	request.send(formData);
+	if (request) {
+		request.onload = function () {
+			var judge_result = request.response;
+			console.log(request.response);
+			show_result(judge_result);
+		}
+	}
+
+
 }
 
+function show_result(judge_result){
+
+	var result_text = "None";
+
+	switch(judge_result){
+
+		case '0':
+			result_text = "AC";
+			break;
+
+		default:
+			break;
+	}
+
+
+	document.getElementById("result").innerHTML=result_text;
+}
 
 setLanguage("c");
 /*
