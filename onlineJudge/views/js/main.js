@@ -175,7 +175,7 @@ function wait(){
 
 function show_GPT(codefilename){
 	var request = new XMLHttpRequest();
-	request.open("GET", "./chatGPT_Result"+codefilename);
+	request.open("GET", "./chatGPT_Result/"+codefilename);
 	request.send();
 	document.getElementById("GPT").innerHTML='.';
 	var load = setInterval(wait, 500);
