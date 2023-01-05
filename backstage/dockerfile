@@ -1,0 +1,7 @@
+FROM eclipse-temurin:11
+RUN mkdir /usr/src/app backstage && mkdir /usr/src/app/backstage question
+WORKDIR /usr/src/app/backstage
+COPY backstage.java ./
+COPY index.html ./
+RUN javac backstage.java
+CMD java backstage

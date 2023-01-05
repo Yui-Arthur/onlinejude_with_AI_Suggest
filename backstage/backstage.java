@@ -8,6 +8,12 @@ import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Map;
+
+
+
 
 public class backstage {
     private static final int PORT = 8002;
@@ -30,27 +36,49 @@ public class backstage {
 
         @Override
         public void handle(HttpExchange exchange) throws IOException {  // 當有連線請求時，會使用此函式來處理
-            InputStream requestBody = exchange.getRequestBody();    // 取得client寄過來的檔案內容
-            exchange.sendResponseHeaders(200, 0);   // 回送狀態碼
-            String directoryName = "./question/";    // 目標資料夾名稱
-            String context = new String(requestBody.readAllBytes(), StandardCharsets.UTF_8);
-            String filename = getFileName(context);  // 取得檔案名稱
-            File directory = new File(directoryName);   // 建立一個資料夾物件
-            if (!directory.exists()) {  // 如果資料夾不存在，則新增它
+            System.out.println(exchange.getRequestMethod()); 
+            if(exchange.getRequestMethod().equals("GET"))
+            {
+                byte[] encoded = Files.readAllBytes(Paths.get("index.html"));
+                exchange.sendResponseHeaders(200, encoded.length);
+                exchange.getResponseHeaders().set("Content-Type", "text/html");
+                OutputStream os = exchange.getResponseBody();
+                os.write(encoded);
+                os.close();
+            }
+            else
+            {
+                InputStream requestBody = exchange.getRequestBody();    // 取得client寄過來的檔案內容
+                
+                String directoryName = "./question/";    // 目標資料夾名稱
+                String context = new String(requestBody.readAllBytes(), StandardCharsets.UTF_8);
+                String filename = getFileName(context);  // 取得檔案名稱
+
+
+                String[] temp = filename.split("\\.");
+
+                filename = temp[0];
+
+
+                File directory = new File(directoryName + filename);
                 directory.mkdir();
-            }
 
-            // 封包處理
-            Pattern pattern = Pattern.compile("Content-Type: text/plain\\r\\n\\r\\n((.|\\r|\\n)+?)\\r\\n------------------");
-            Matcher matcher = pattern.matcher(context);
-            if (matcher.find()) {
-                context = matcher.group(1);
-            }
+                String[] parts = context.split("\n");
+                String new_content = "";
+                for (int i=4;i<parts.length-1;i++)
+                {
+                    new_content +=parts[i]+"\n";
+                }
 
-            // 寫入檔案
-            FileWriter fw = new FileWriter(directoryName + filename);
-            fw.write(context);
-            fw.close();
+                FileWriter fw = new FileWriter(directoryName + filename + "/description.txt");
+                fw.write(new_content);
+                fw.close();
+                
+                
+                Headers responseHeaders = exchange.getResponseHeaders();
+                responseHeaders.set("Location", "./OJbackstage");
+                exchange.sendResponseHeaders(302,0);
+            }
         }
     }
 }
